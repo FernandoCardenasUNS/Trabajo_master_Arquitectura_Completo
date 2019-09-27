@@ -6,6 +6,8 @@
 package com.demo.view;
 
 import com.demo.controller.ControllerLogin;
+import java.io.File;
+import java.util.Formatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,8 @@ public class Log_Up extends javax.swing.JFrame {
         initComponents();
         cLU = new ControllerLogin();
     }
+    String barra=File.separator;
+    String ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,24 +212,28 @@ public class Log_Up extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String usuario,clave, nclave,email,apellido,nombre;
-        usuario = this.usu.getText();
-        clave = this.con.getText();
-        nclave = this.ncon.getText();
-        email=this.ema.getText();
-        nombre=this.nom.getText();
-        apellido=this.ape.getText();
+        String archivo = usu.getText()+".registros";
+        File crea_ubicacion=new File(ubicacion);
+        File crea_archivo=new File(ubicacion+ archivo); 
         
-        boolean band;
-        
-        band = this.cLU.logUp(usuario, email, clave, nclave, apellido, nombre);
-        
-        if(band){
-            //login Correcto
-            JOptionPane.showMessageDialog(this, "Registro Completo");
+        if(usu.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane,"No hay ID");
         }else{
-            //login incorrecto
-            JOptionPane.showMessageDialog(this, "Registro Erroneo");
+            try {
+                if (crea_archivo.exists()) {
+                    JOptionPane.showMessageDialog(rootPane,"El archivo ya existe");
+                }else{
+                    crea_ubicacion.mkdirs();
+                        Formatter crea=new Formatter(ubicacion+archivo);
+                        crea.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n","ID="+usu.getText(),"Contraseña="
+                                +con.getText(),"Email="+ema.getText(),"Nombre="+nom.getText(),"Apellidos="+ape.getText());
+                        crea.close();
+                        JOptionPane.showMessageDialog(rootPane,"Archivo Creado");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
+            }
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

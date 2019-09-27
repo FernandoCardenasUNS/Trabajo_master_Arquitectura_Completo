@@ -6,6 +6,7 @@
 package com.demo.view;
 
 import com.demo.controller.ControllerLogin;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,8 @@ public class VistaLogin extends javax.swing.JFrame {
         cLogin = new ControllerLogin();
         setLocationRelativeTo(null);
     }
+    String barra=File.separator;
+    String ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,8 +40,8 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        JtxtUsuario = new javax.swing.JTextField();
-        jTxtClave = new javax.swing.JTextField();
+        usu = new javax.swing.JTextField();
+        con = new javax.swing.JTextField();
         jBtnLogin = new javax.swing.JButton();
         jBtnLogup = new javax.swing.JButton();
         jBtnRecuperar = new javax.swing.JButton();
@@ -54,9 +57,9 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
         jLabel3.setText("CLAVE:");
 
-        JtxtUsuario.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        usu.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
 
-        jTxtClave.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        con.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
 
         jBtnLogin.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
         jBtnLogin.setText("Log In");
@@ -98,8 +101,8 @@ public class VistaLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JtxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(jTxtClave)))
+                            .addComponent(usu, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(con)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jBtnLogin)
@@ -117,11 +120,11 @@ public class VistaLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(JtxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTxtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnLogin)
@@ -135,20 +138,20 @@ public class VistaLogin extends javax.swing.JFrame {
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
         // TODO add your handling code here:
-        String usuario, clave;
-        usuario = this.JtxtUsuario.getText();
-        clave = this.jTxtClave.getText();
+        File url = new File(ubicacion+usu.getText()+".registros");
         
-        boolean band;
-        
-        band = this.cLogin.logIn(usuario, clave);
-        
-        if(band){
-            //login Correcto
-            JOptionPane.showMessageDialog(this, "Login Valida");
-        }else{
-            //login incorrecto
-            JOptionPane.showMessageDialog(this, "Login Invalido");
+        if (usu.getText().equals("")) {
+            
+        } else {
+            if(url.exists()){
+                try {
+                    JOptionPane.showMessageDialog(rootPane,"Cuenta Valida");
+                } catch (Exception e) {
+
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane,"Ingrese ID y/o Contraseña Correcta"+ "\n  O Cree una cuenta");
+            }
         }
         
     }//GEN-LAST:event_jBtnLoginActionPerformed
@@ -203,13 +206,13 @@ public class VistaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField JtxtUsuario;
+    private javax.swing.JTextField con;
     private javax.swing.JButton jBtnLogin;
     private javax.swing.JButton jBtnLogup;
     private javax.swing.JButton jBtnRecuperar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTxtClave;
+    private javax.swing.JTextField usu;
     // End of variables declaration//GEN-END:variables
 }

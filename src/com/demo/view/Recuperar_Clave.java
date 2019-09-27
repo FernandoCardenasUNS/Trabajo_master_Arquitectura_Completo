@@ -6,6 +6,10 @@
 package com.demo.view;
 
 import com.demo.controller.ControllerLogin;
+import java.io.*;
+import java.io.FileInputStream;
+import java.util.Formatter;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +26,8 @@ public class Recuperar_Clave extends javax.swing.JFrame {
         initComponents();
         cLRec= new ControllerLogin();
     }
+    String barra=File.separator;
+    String ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,9 +43,9 @@ public class Recuperar_Clave extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        usua = new javax.swing.JTextField();
-        clav = new javax.swing.JTextField();
-        nclav = new javax.swing.JTextField();
+        usu = new javax.swing.JTextField();
+        con = new javax.swing.JTextField();
+        ncon = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
@@ -70,16 +76,16 @@ public class Recuperar_Clave extends javax.swing.JFrame {
             }
         });
 
-        usua.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
-        usua.addActionListener(new java.awt.event.ActionListener() {
+        usu.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        usu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuaActionPerformed(evt);
+                usuActionPerformed(evt);
             }
         });
 
-        clav.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        con.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
 
-        nclav.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        ncon.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         jLabel4.setText("RECUPERAR CUENTA");
@@ -107,9 +113,9 @@ public class Recuperar_Clave extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(clav)
-                            .addComponent(usua)
-                            .addComponent(nclav, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
+                            .addComponent(con)
+                            .addComponent(usu)
+                            .addComponent(ncon, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jButton2)
@@ -129,15 +135,15 @@ public class Recuperar_Clave extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(usua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(clav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(nclav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ncon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,38 +155,48 @@ public class Recuperar_Clave extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuaActionPerformed
+    private void usuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usuaActionPerformed
+    }//GEN-LAST:event_usuActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         VistaLogin vl= new VistaLogin();
         vl.setVisible(true);
         vl.setLocationRelativeTo(null);
-        this.dispose();
+        dispose();
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String usuario, clave, nclave;
-        usuario = this.usua.getText();
-        clave = this.clav.getText();
-        nclave = this.nclav.getText();
-        
-        boolean band;
-        
-        band = this.cLRec.RecuperarClave(usuario, clave, nclave);
-        
-        if(band){
-            //login Correcto
-            JOptionPane.showMessageDialog(this, "Contraseña Cambiada");
+        File url = new File(ubicacion+usu.getText()+".registros");
+        if(usu.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane,"Indique el egistro a editar");
+            
         }else{
-            //login incorrecto
-            JOptionPane.showMessageDialog(this, "Proceso Invalido");
+            if (url.exists()) {
+                try {
+                    FileWriter modificar=new FileWriter(ubicacion+usu.getText()+".registros");
+                    String ID = "ID=";
+                    String Contraseña="Contraseña=";
+                    String Email= "Email=";
+                    String Nombre="Nombre=";
+                    String Apellidos="Apellido=";
+                    PrintWriter guardar = new PrintWriter(modificar);
+                    guardar.println(Contraseña+con.getText());
+                    modificar.close();
+                    JOptionPane.showMessageDialog(rootPane,"Se edito correctamente");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane,"Error");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane,"El registro no existe");  
+            }
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JOptionPane.showMessageDialog(rootPane,"Se cancelo operacion");
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -221,7 +237,7 @@ public class Recuperar_Clave extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField clav;
+    private javax.swing.JTextField con;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -229,7 +245,7 @@ public class Recuperar_Clave extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField nclav;
-    private javax.swing.JTextField usua;
+    private javax.swing.JTextField ncon;
+    private javax.swing.JTextField usu;
     // End of variables declaration//GEN-END:variables
 }

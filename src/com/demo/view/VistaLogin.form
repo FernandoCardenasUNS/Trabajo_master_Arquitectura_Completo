@@ -37,8 +37,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="JtxtUsuario" pref="156" max="32767" attributes="0"/>
-                          <Component id="jTxtClave" max="32767" attributes="0"/>
+                          <Component id="usu" pref="156" max="32767" attributes="0"/>
+                          <Component id="con" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -62,12 +62,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JtxtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="usu" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtClave" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="con" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -105,14 +105,14 @@
         <Property name="text" type="java.lang.String" value="CLAVE:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="JtxtUsuario">
+    <Component class="javax.swing.JTextField" name="usu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Cambria Math" size="12" style="1"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtClave">
+    <Component class="javax.swing.JTextField" name="con">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Cambria Math" size="12" style="1"/>
