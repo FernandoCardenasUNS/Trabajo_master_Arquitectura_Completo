@@ -6,6 +6,7 @@
 package com.demo.view;
 
 import com.demo.controller.ControllerLogin;
+import com.demo.controller.Controller_Metodos;
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,7 @@ public class VistaLogin extends javax.swing.JFrame {
         cLogin = new ControllerLogin();
         setLocationRelativeTo(null);
     }
+    Controller_Metodos metodo = new Controller_Metodos();
     String barra=File.separator;
     String ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
 
@@ -138,20 +140,20 @@ public class VistaLogin extends javax.swing.JFrame {
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
         // TODO add your handling code here:
-        File url = new File(ubicacion+usu.getText()+".registros");
-        
-        if (usu.getText().equals("")) {
-            
-        } else {
-            if(url.exists()){
-                try {
-                    JOptionPane.showMessageDialog(rootPane,"Cuenta Valida");
-                } catch (Exception e) {
-
-                }
-            }else{
-                JOptionPane.showMessageDialog(rootPane,"Ingrese ID y/o Contraseña Correcta"+ "\n  O Cree una cuenta");
-            }
+        String busqueda_usuario = metodo.buscarUsuarioRegistrado(usu.getText(), con.getText());
+        if (usu.getText().equals("root") && con.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Iniciaste como administrador");
+            Acceso ventana = new Acceso();
+            ventana.acc.setText("Administrador");
+            ventana.setVisible(true);
+            this.dispose();
+        }else if(busqueda_usuario.equals("Usuario encontrado")){
+            String busqueda_nombre= metodo.buscarNombre(usu.getText());
+            JOptionPane.showMessageDialog(null,"Bienvenido(a) \n" + busqueda_nombre);
+            Acceso ventana = new Acceso();
+            ventana.setVisible(true);
+            ventana.acc.setText(busqueda_nombre);
+            this.dispose();         
         }
         
     }//GEN-LAST:event_jBtnLoginActionPerformed

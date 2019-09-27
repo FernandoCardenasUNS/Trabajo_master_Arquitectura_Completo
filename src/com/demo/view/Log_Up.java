@@ -6,6 +6,7 @@
 package com.demo.view;
 
 import com.demo.controller.ControllerLogin;
+import com.demo.controller.Controller_Metodos;
 import java.io.File;
 import java.util.Formatter;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class Log_Up extends javax.swing.JFrame {
         initComponents();
         cLU = new ControllerLogin();
     }
+    Controller_Metodos metodos = new Controller_Metodos();
     String barra=File.separator;
     String ubicacion=System.getProperty("user.dir")+barra+"Registros"+barra;
 
@@ -212,28 +214,15 @@ public class Log_Up extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String archivo = usu.getText()+".registros";
-        File crea_ubicacion=new File(ubicacion);
-        File crea_archivo=new File(ubicacion+ archivo); 
-        
-        if(usu.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane,"No hay ID");
+        if(!con.getText().equals(ncon.getText())){
+            JOptionPane.showMessageDialog(null,"Contraseña no coincide","Mensaje de Confirmacion",JOptionPane.ERROR_MESSAGE);
         }else{
-            try {
-                if (crea_archivo.exists()) {
-                    JOptionPane.showMessageDialog(rootPane,"El archivo ya existe");
-                }else{
-                    crea_ubicacion.mkdirs();
-                        Formatter crea=new Formatter(ubicacion+archivo);
-                        crea.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n","ID="+usu.getText(),"Contraseña="
-                                +con.getText(),"Email="+ema.getText(),"Nombre="+nom.getText(),"Apellidos="+ape.getText());
-                        crea.close();
-                        JOptionPane.showMessageDialog(rootPane,"Archivo Creado");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane,"No se pudo crear");
+            int i = metodos.guardar(usu.getText(),nom.getText(), ape.getText(), ema.getText(), con.getText());
+            if (i>0) {
+                JOptionPane.showMessageDialog(this,"Datos guardados");
+            } else {
+                JOptionPane.showInputDialog(null,"No se puedo Guardar Los Datos","Mensaje de Confirmacion",JOptionPane.ERROR_MESSAGE);
             }
-            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
